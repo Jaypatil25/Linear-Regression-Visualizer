@@ -4,9 +4,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-st.set_page_config(page_title="Linear Regression Explorer", layout="wide", page_icon="📈")
+st.set_page_config(page_title="Linear Regression Explorer", layout="wide", page_icon=":material/show_chart:")
 
 st.markdown("""
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
     .main { background-color: #0e1117; }
     .stTabs [data-baseweb="tab-list"] { gap: 8px; }
@@ -73,7 +74,7 @@ COLORS = {"scatter": "#818cf8", "line": "#f472b6", "residual": "#fb923c",
 # ── sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    st.markdown("## ⚙️ Controls")
+    st.markdown('<h2><i class="bi bi-sliders"></i> Controls</h2>', unsafe_allow_html=True)
     st.markdown("---")
     dataset = st.selectbox("Dataset", ["Clean Linear", "Noisy", "Custom"])
     noise_level = st.slider("Noise Level", 0.1, 3.0, 0.8, 0.1)
@@ -94,19 +95,19 @@ X_line = np.linspace(X.min() - 0.5, X.max() + 0.5, 200)
 
 # ── header ────────────────────────────────────────────────────────────────────
 
-st.markdown("# 📈 Linear Regression Explorer")
+st.markdown('<h1><i class="bi bi-graph-up-arrow"></i> Linear Regression Explorer</h1>', unsafe_allow_html=True)
 st.markdown("*Interactively visualize how a model learns — from raw data to gradient descent convergence.*")
 st.markdown("---")
 
 # ── tabs ──────────────────────────────────────────────────────────────────────
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📊 Data & Line Fit",
-    "📉 Error & Residuals",
-    "🗺️ Loss Landscape",
-    "🚀 Gradient Descent",
-    "⚡ Learning Rate",
-    "🌪️ Noise & Outliers",
+    "Data & Line Fit",
+    "Error & Residuals",
+    "Loss Landscape",
+    "Gradient Descent",
+    "Learning Rate",
+    "Noise & Outliers",
 ])
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -151,7 +152,7 @@ with tab1:
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("""<div class="insight-box">
-    🔍 <b>What to observe:</b> Drag the slope and intercept sliders in the sidebar.
+    <i class="bi bi-search"></i> <b>What to observe:</b> Drag the slope and intercept sliders in the sidebar.
     The <span style="color:#f472b6">pink line</span> is your manual fit; the
     <span style="color:#34d399">green dashed line</span> is the mathematically optimal OLS solution.
     Try to match them by minimizing the MSE shown above!
@@ -194,7 +195,7 @@ with tab2:
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("""<div class="insight-box">
-    🔍 <b>What to observe:</b> Each vertical line is a residual (prediction error).
+    <i class="bi bi-search"></i> <b>What to observe:</b> Each vertical line is a residual (prediction error).
     <span style="color:#ef4444">Red lines</span> are large errors (outliers).
     The right chart shows squared errors — squaring penalizes large mistakes heavily,
     which is why Linear Regression is sensitive to outliers.
@@ -241,7 +242,7 @@ with tab3:
 
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("""<div class="insight-box">
-    🔍 <b>What to observe:</b> The loss surface is a bowl (convex) — there's one global minimum.
+    <i class="bi bi-search"></i> <b>What to observe:</b> The loss surface is a bowl (convex) — there's one global minimum.
     The <span style="color:#f472b6">pink star</span> is your current (m, b) position.
     The <span style="color:#34d399">green star</span> is the true minimum.
     Gradient descent rolls down this bowl toward the bottom.
@@ -304,7 +305,7 @@ with tab4:
     st.plotly_chart(fig3, use_container_width=True)
 
     st.markdown(f"""<div class="insight-box">
-    🔍 <b>Step {step}/{n_iter}:</b> m = {ms[step]:.4f}, b = {bs[step]:.4f}, MSE = {losses[step]:.4f}<br>
+    <i class="bi bi-search"></i> <b>Step {step}/{n_iter}:</b> m = {ms[step]:.4f}, b = {bs[step]:.4f}, MSE = {losses[step]:.4f}<br>
     Drag the slider to replay the learning process step by step.
     Each step moves parameters in the direction that reduces loss the most.
     </div>""", unsafe_allow_html=True)
@@ -350,7 +351,7 @@ with tab5:
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
     st.markdown("""<div class="insight-box">
-    🔍 <b>What to observe:</b>
+    <i class="bi bi-search"></i> <b>What to observe:</b>
     <span style="color:#ef4444">Too large</span> → loss explodes (divergence).
     <span style="color:#818cf8">Too small</span> → converges very slowly.
     <span style="color:#f472b6">Optimal</span> → fast, smooth convergence.
@@ -421,7 +422,7 @@ with tab6:
     st.dataframe(comparison, use_container_width=True, hide_index=True)
 
     st.markdown("""<div class="insight-box">
-    🔍 <b>What to observe:</b> Even a few outliers can dramatically shift the regression line
+    <i class="bi bi-search"></i> <b>What to observe:</b> Even a few outliers can dramatically shift the regression line
     because MSE squares the errors — large mistakes get disproportionately large penalties.
     Increase the outlier count and watch the dashed line get pulled away from the true trend.
     </div>""", unsafe_allow_html=True)
